@@ -37,7 +37,7 @@ public class RedisClient {
 
     public boolean setl(int DBNum){
         Jedis jedis=getDB(DBNum);
-//        jedis.set
+        //jedis.
         return false;
     }
 
@@ -45,6 +45,7 @@ public class RedisClient {
         Jedis jedis=getDB(DBNum);
         String result=jedis.set(key,value);
         if(result!=null) return true;
+        jedis.close();
         return false;
     }
     public Jedis getDB(int DBNum){
@@ -57,6 +58,7 @@ public class RedisClient {
     public String get(int DBNum,String key){
         Jedis jedis=getDB(DBNum);
         String value=jedis.get(key);
+        jedis.close();
         return value;
     }
 }

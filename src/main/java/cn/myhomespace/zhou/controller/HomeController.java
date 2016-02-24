@@ -75,10 +75,11 @@ public class HomeController {
         renderData(response,jsonObject);
     }
 
-    @RequestMapping()
+    @RequestMapping("/getImg")
     public void getHeroImg(){
-        for(){
-
-        }
+//        redisClient.
+//        for(){
+//
+//        }
     }
 }
