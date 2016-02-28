@@ -14,6 +14,11 @@ import java.net.URLConnection;
  */
 public class UrlUtils {
 
+    public static String getNameFromUrl(String url){
+        String fileName=url.substring(url.lastIndexOf("/"),url.length());
+        return fileName;
+    }
+
     /**
      * 根据url获取字符流
      * @param urlStr

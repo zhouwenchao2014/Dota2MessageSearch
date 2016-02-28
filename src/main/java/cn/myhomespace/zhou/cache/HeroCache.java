@@ -2,6 +2,7 @@ package cn.myhomespace.zhou.cache;
 
 import cn.myhomespace.zhou.Client.RedisClient;
 import cn.myhomespace.zhou.object.HeroInfo;
+import cn.myhomespace.zhou.utils.UrlUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.cache.LoadingCache;
@@ -39,10 +40,7 @@ public class HeroCache {
     @PostConstruct
     public void init(){
         try {
-            URL url=new URL("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key="+SECRETKEY+"&language=zh");
-            URLConnection urlConnection=url.openConnection();
-            InputStream inputStream=urlConnection.getInputStream();
-            BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream,"utf-8"));
+            BufferedReader bufferedReader=UrlUtils.getBufferByUrl("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key="+SECRETKEY+"&language=zh");
             StringBuffer message=new StringBuffer();
             String line="";
             while ((line=bufferedReader.readLine())!=null){

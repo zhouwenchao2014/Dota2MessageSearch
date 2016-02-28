@@ -19,12 +19,43 @@ public class DownLoadFile {
 
     public static boolean downLoadImg(String url){
         InputStream inputStream=UrlUtils.getInputStreamByUrl(url);
-        String fileName=url.substring(url.lastIndexOf("/"),url.length());
-        createAndDownLoadFile(inputStream,fileName);
+        String fileName=UrlUtils.getNameFromUrl(url);
+        createAndDownLoadImg(inputStream,fileName);
         return true;
     }
 
-    public static void createAndDownLoadFile(InputStream inputStream,String fileName){
+    public static boolean downLoadFile(String url){
+        BufferedReader bufferedReader=UrlUtils.getBufferByUrl(url);
+        String fileName=UrlUtils.getNameFromUrl(url);
+        createAndDownLoadFile(bufferedReader,fileName);
+        return true;
+    }
+
+    public static void createAndDownLoadFile(BufferedReader bufferedReader,String fileName){
+        File dir=new File(path);
+        File file=new File(path+"/"+fileName);
+        if(!file.exists()){
+            try {
+                dir.mkdir();
+                file.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            String line="";
+            BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
+            while ((line=bufferedReader.readLine())!=null){
+                bufferedWriter.write(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createAndDownLoadImg(InputStream inputStream,String fileName){
         File dir=new File(path);
         File file=new File(path+"/"+fileName);
         if(!file.exists()){
